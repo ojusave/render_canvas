@@ -1,26 +1,133 @@
 @import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+@import "uplot/dist/uPlot.min.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: #0f172a;
+  --color-foreground: #e2e8f0;
+  --color-render-blue: #4351E8;
+  --color-render-dark: #181B38;
+  --color-render-green: #59FFA4;
+  --color-canvas-bg: #0f172a;
+  --color-sidebar-bg: #181B38;
+  --color-card-bg: #1f2937;
+  --color-card-border: #374151;
+  --color-input-bg: #1f2937;
+  --color-input-border: #374151;
+  --color-status-green: #22c55e;
+  --color-status-blue: #3b82f6;
+  --color-status-red: #ef4444;
+  --color-status-amber: #f59e0b;
+  --color-status-gray: #6b7280;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  --animate-flow-dots: flow-dots 1.5s linear infinite;
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-status-pulse: status-pulse 2s ease-in-out infinite;
+
+  @keyframes flow-dots {
+    0% { stroke-dashoffset: 24; }
+    100% { stroke-dashoffset: 0; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes status-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
 }
 
+html {
+  color-scheme: dark;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas-bg);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+/* React Flow dark mode overrides */
+.react-flow {
+  --xy-background-color: var(--color-canvas-bg);
+  --xy-node-background-color: var(--color-card-bg);
+  --xy-node-border-color: var(--color-card-border);
+  --xy-edge-stroke: var(--color-card-border);
+  --xy-minimap-background: var(--color-sidebar-bg);
+  --xy-controls-background: var(--color-card-bg);
+  --xy-controls-border-color: var(--color-card-border);
+  --xy-controls-button-background: var(--color-card-bg);
+  --xy-controls-button-color: var(--color-foreground);
+}
+
+.react-flow__minimap {
+  border-radius: 8px;
+  border: 1px solid var(--color-card-border);
+  overflow: hidden;
+}
+
+.react-flow__controls {
+  border-radius: 8px;
+  border: 1px solid var(--color-card-border);
+  overflow: hidden;
+}
+
+.react-flow__controls button:hover {
+  background-color: #374151;
+}
+
+/* uPlot dark theme overrides */
+.uplot {
+  font-family: var(--font-sans);
+}
+
+.uplot .u-legend {
+  display: none;
+}
+
+.u-wrap {
+  background: transparent !important;
+}
+
+.uplot .u-cursor-x,
+.uplot .u-cursor-y {
+  border-color: #6b7280 !important;
+}
+
+/* Dark scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
