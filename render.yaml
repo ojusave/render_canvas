@@ -4,10 +4,15 @@ services:
     name: render-canvas
     plan: free
     region: oregon
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    buildCommand: npm ci && npm run build && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/
+    startCommand: node .next/standalone/server.js
+    healthCheckPath: /
     envVars:
       - key: SESSION_SECRET
         generateValue: true
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 3000
+      - key: HOSTNAME
+        value: 0.0.0.0
